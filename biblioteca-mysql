@@ -1,0 +1,48 @@
+CREATE TABLE usuario (
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL,
+    telefone TEXT,
+    endereco TEXT,
+    tipo TEXT NOT NULL
+);
+
+INSERT INTO usuario VALUES (01, 'Sara Lima', 'saralima@gmail.com', '31923456789', 'Rua x, 123', 'Estudante');
+INSERT INTO usuario VALUES (02, 'Letícia Antunes', 'leticiaantunes@gmail.com', '31987654321', 'Av y, 456', 'Professora');
+INSERT INTO usuario VALUES (03, 'Lucas', 'lucas@gmail.com', '31923045607', 'Rua z, 789', 'Funcionário');
+
+SELECT * FROM usuario WHERE tipo = 'Estudante';
+SELECT * FROM usuario WHERE tipo = 'Professora';
+SELECT * FROM usuario WHERE tipo = 'Funcionário';
+
+CREATE TABLE livro (
+    id INTEGER PRIMARY KEY,
+    nome TEXT NOT NULL,
+    autor TEXT NOT NULL,
+    isbn TEXT,
+    editora TEXT,
+    quantidade INTEGER NOT NULL DEFAULT 1
+);
+
+INSERT INTO livro VALUES (123, 'O pequeno príncipe', 'Antoine de Saint-Exupéry', '9788595001512', 'Editora Y', 4);
+INSERT INTO livro VALUES (456, '1984', 'George Orwell', '97885152', 'Editora X', 5);
+
+SELECT * FROM livro WHERE id = 123;
+SELECT * FROM livro WHERE id = 456;
+
+CREATE TABLE emprestimo (
+    id INTEGER PRIMARY KEY,
+    usuario_id INTEGER NOT NULL,
+    livro_id INTEGER NOT NULL,
+    dataemprestimo TEXT NOT NULL,
+    datadevolucao TEXT,
+    status TEXT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (livro_id)REFERENCES livro(id)
+);
+
+INSERT INTO emprestimo VALUES (1321, 01, 123, '21-04-2025', '25-04-2025', 'Finalizado');
+INSERT INTO emprestimo VALUES (1322, 02, 456, '21-04-2025', NULL, 'Ativo');
+
+SELECT * FROM emprestimo WHERE id = 1321;
+SELECT * FROM emprestimo WHERE id = 1322;
